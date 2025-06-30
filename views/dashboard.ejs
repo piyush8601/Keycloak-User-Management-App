@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white shadow-2xl rounded-3xl p-10 w-full max-w-4xl">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-extrabold text-blue-700">Welcome, <%= user.username %> 👋</h1>
+      <p class="text-gray-600 mt-2 text-lg">Here's your dashboard overview</p>
+    </div>
+
+    <!-- User Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-gray-100 p-6 rounded-xl shadow-inner">
+        <p class="text-sm text-gray-500 mb-1">Email</p>
+        <p class="text-lg font-medium text-gray-800 mb-1 "><%= user.email %></p>
+        <p class="text-sm text-gray-500 mb-1">FirstName</p>
+        <p class="text-lg font-medium text-gray-800 mb-1"><%= user.firstName %></p>
+        <p class="text-sm text-gray-500 mb-1">LastName</p>
+        <p class="text-lg font-medium text-gray-800 mb-1"><%= user.lastName %></p>
+      </div>
+
+      <div class="bg-gray-100 p-6 rounded-xl shadow-inner">
+        <div class="flex justify-between items-center mb-2">
+          <p class="text-sm text-gray-500">Access Token</p>
+          <button onclick="copyToken()"
+                  class="bg-blue-600 text-white text-sm px-4 py-1 rounded-full hover:bg-blue-700 transition-all duration-200">
+            Copy
+          </button>
+        </div>
+        <div id="tokenBox" class="text-xs font-mono text-gray-700 bg-white p-3 border rounded-lg h-40 overflow-auto">
+          <%= user.access_token %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="mb-10">
+      <h2 class="text-xl font-semibold text-gray-800 mb-3">Available Links</h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <li>
+          <a href="/admin"
+             class="block bg-blue-100 text-blue-700 font-medium px-4 py-3 rounded-xl text-center hover:bg-blue-200 transition">
+            🛠 Admin Panel
+          </a>
+        </li>
+        <li>
+          <a href="/manager"
+             class="block bg-green-100 text-green-700 font-medium px-4 py-3 rounded-xl text-center hover:bg-green-200 transition">
+            📊 Manager Tools
+          </a>
+        </li>
+        <li>
+          <a href="/employee"
+             class="block bg-yellow-100 text-yellow-700 font-medium px-4 py-3 rounded-xl text-center hover:bg-yellow-200 transition">
+            🧑‍💼 Employee Portal
+          </a>
+        </li>
+        <li>
+          <a href="/user"
+             class="block bg-purple-100 text-purple-700 font-medium px-4 py-3 rounded-xl text-center hover:bg-purple-200 transition">
+            🏠 User Home
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Logout -->
+    <div class="text-center">
+      <a href="/logout"
+         class="inline-block bg-red-600 text-white text-lg font-semibold px-8 py-2 rounded-xl hover:bg-red-700 transition">
+        Logout
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"
+       class="hidden fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-500">
+    ✅ Access token copied to clipboard!
+  </div>
+
+  <!-- Copy Script -->
+  <script>
+    function copyToken() {
+      const tokenText = document.getElementById('tokenBox').innerText;
+      navigator.clipboard.writeText(tokenText).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('hidden');
+        toast.classList.add('opacity-100');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('opacity-100');
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
