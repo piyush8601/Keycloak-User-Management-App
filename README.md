@@ -53,8 +53,8 @@ keycloak-registration-app/
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/keycloak-registration-app.git
-cd keycloak-registration-app
+git clone https://github.com/piyush8601/Keycloak-User-Management-App.git
+cd Keycloak-User-Management-App
 npm install
 ```
 
